@@ -18,4 +18,5 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 .idea
+src/Controller/FALTUKIFILE/
 ###< symfony/web-server-bundle ###

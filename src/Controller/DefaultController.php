@@ -3,49 +3,38 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Services\GiftService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
+
+    //if constructor available it will override index function, but if just want to use service only anywhere, 
+    //then we can just use GiftService object inspite of constuctor
+    public function __construct(GiftService $gifts)
+    {
+        $gifts->gifts = ['A', 'B', 'C', 'D'];
+    }
+
+
+
     /**
      * @Route("/", name="default")
      */
-    public function index()
+    public function index(GiftService $gifts)
     {
-        //TO execute create query and storing data in database
-        // $entityManager = $this->getDoctrine()->getManager();     
 
-        // $user1 = new User;
-        // $user1->setName('Deepak');
-
-        // $user2 = new User;
-        // $user2->setName('Vikas');
-
-        // $user3 = new User;
-        // $user3->setName('Aamir');
-
-        // $user4 = new User;
-        // $user4->setName('Shantanu');
         
-        // $entityManager->persist($user1);
-        // $entityManager->persist($user2);
-        // $entityManager->persist($user3);
-        // $entityManager->persist($user4);
-        // exit($entityManager->flush());
-
         //to read all data from database
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
-        // print $users[0]['name'];
-        // $users = [{'name' : 'Adam'}];
-    //    $users = [];
 
-        // return new Response('<b>Hello Deepak</b>');
 
          return $this->render('default/index.html.twig', [
              'controller_name' =>'DefaultController',
             'users' => $users,
+            'random_gift' => $gifts->gifts,
         ]);
 
 
