@@ -11,15 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
 
-    //if constructor available it will override index function, but if just want to use service only anywhere, 
-    //then we can just use GiftService object inspite of constuctor
-    public function __construct(GiftService $gifts)
-    {
-        $gifts->gifts = ['A', 'B', 'C', 'D'];
-    }
-
-
-
     /**
      * @Route("/", name="default")
      */
@@ -32,7 +23,7 @@ class DefaultController extends AbstractController
 
 
          return $this->render('default/index.html.twig', [
-             'controller_name' =>'DefaultController',
+            'controller_name' =>'DefaultController',
             'users' => $users,
             'random_gift' => $gifts->gifts,
         ]);
